@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="QDh-xe-mIg">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="ndc-pu-Qtu">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="QDh-xe-mIg" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="szV-en-BFn">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="uxr-0M-0pj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mgc-bm-buK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-349" y="138"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="HRSViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="MyFile.txt" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yk9-8T-I6W">
+                                <rect key="frame" x="69" y="81" width="174" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Path:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gfb-jZ-hfb">
+                                <rect key="frame" x="20" y="84" width="41" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Pqr-xp-Gt7">
+                                <rect key="frame" x="251" y="80" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrW-oz-Ab0">
+                                <rect key="frame" x="20" y="119" width="280" height="429"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">This demo writes the text in this text field to the file specified above once you tap 'Save'.
+
+However if the switch is set to off, existing files are not overwritten. If the file is already present, an error message is shown that prompts the user to overwrite the file or cancel the save operation.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Pqr-xp-Gt7" secondAttribute="trailing" constant="20" id="6fq-by-bqF"/>
+                            <constraint firstItem="Pqr-xp-Gt7" firstAttribute="leading" secondItem="Yk9-8T-I6W" secondAttribute="trailing" constant="8" symbolic="YES" id="Bzd-de-C5e"/>
+                            <constraint firstItem="Gfb-jZ-hfb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="FXv-3O-Yw5"/>
+                            <constraint firstItem="Yk9-8T-I6W" firstAttribute="leading" secondItem="Gfb-jZ-hfb" secondAttribute="trailing" constant="8" symbolic="YES" id="IxD-Q4-2Pu"/>
+                            <constraint firstAttribute="trailing" secondItem="zrW-oz-Ab0" secondAttribute="trailing" constant="20" id="ZTc-JS-n3p"/>
+                            <constraint firstItem="Pqr-xp-Gt7" firstAttribute="centerY" secondItem="Yk9-8T-I6W" secondAttribute="centerY" constant="-0.5" id="fAs-Gt-1LS"/>
+                            <constraint firstItem="Gfb-jZ-hfb" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="gua-OX-Vu8"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="zrW-oz-Ab0" secondAttribute="bottom" constant="20" id="jah-qR-2nU"/>
+                            <constraint firstItem="Yk9-8T-I6W" firstAttribute="baseline" secondItem="Gfb-jZ-hfb" secondAttribute="baseline" id="sfc-jF-Z5P"/>
+                            <constraint firstItem="zrW-oz-Ab0" firstAttribute="top" secondItem="Yk9-8T-I6W" secondAttribute="bottom" constant="8" id="uaG-aY-dxQ"/>
+                            <constraint firstItem="zrW-oz-Ab0" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="zzF-Ej-scj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ac9-Aq-wSj">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="ync-es-pWN">
+                            <connections>
+                                <action selector="saveFile:" destination="vXZ-lx-hvc" id="9dQ-ih-vMy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="allowOverwriteSwitch" destination="Pqr-xp-Gt7" id="gSc-gs-mYm"/>
+                        <outlet property="pathTextField" destination="Yk9-8T-I6W" id="SFI-wC-7gq"/>
+                        <outlet property="textView" destination="zrW-oz-Ab0" id="bXc-oK-pJl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

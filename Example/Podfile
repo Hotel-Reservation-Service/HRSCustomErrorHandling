@@ -1,0 +1,9 @@
+target 'HRSCustomErrorHandling', :exclusive => true do
+  pod "HRSCustomErrorHandling", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "HRSCustomErrorHandling", :path => "../"
+
+  pod 'OCMock'
+end
