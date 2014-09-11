@@ -17,60 +17,59 @@
 @interface UIResponder (HRSCustomErrorPresentation)
 
 /**
- *  Presents an error to the user.
- *
- *  The default implementation of this method will call `willPresentError:` with
- *  the error that was passed to this method. The resulting error will then be
- *  forwarded up the responder chain. If there is no next responder, the error
- *  is forwarded to the current `UIApplication` instance.
- *
- *  If the responder that receives this message is the application delegate or
- *  it is the application itself and the application delegate does not inherit
- *  from `UIResponder` the error is presented in a `UIAlertView` dialog.
- *
- *  After the user dismisses the alert view, the error recovery for this option
- *  is automatically started. After the error recovery, the completion handler
- *  is called, reporting whether the recovery was successful or not.
- *
- *  It is recommended to retry the action that lead to the error in the first
- *  place when the error recovery was successful.
- *
- *  @note You can override this method in your application delegate to create
-          your own custom error presentation UI. Make sure to let your delegate
-          inherit from `UIResponder` for this hook to work.
- *
- *  @param error             The error that should be presented to the user.
- *  @param completionHandler The completion handler that is called when the user
-                             taps a button and the error recovery was completed.
-				             didRecover Is true if the error recovery was
-                                        successful. You should retry the action
-                                        that lead to the error in this case.
+ Presents an error to the user.
+ 
+ The default implementation of this method will call `willPresentError:` with
+ the error that was passed to this method. The resulting error will then be
+ forwarded up the responder chain. If there is no next responder, the error
+ is forwarded to the current `UIApplication` instance.
+ 
+ If the responder that receives this message is the application delegate or it
+ is the application itself and the application delegate does not inherit from
+ `UIResponder` the error is presented in a `UIAlertView` dialog.
+ 
+ After the user dismisses the alert view, the error recovery for this option is
+ automatically started. After the error recovery, the completion handler is
+ called, reporting whether the recovery was successful or not.
+ 
+ It is recommended to retry the action that lead to the error in the first place
+ when the error recovery was successful.
+ 
+ @note You can override this method in your application delegate to create your
+       own custom error presentation UI. Make sure to let your delegate inherit
+       from `UIResponder` for this hook to work.
+ 
+ @param error             The error that should be presented to the user.
+ @param completionHandler The completion handler that is called when the user
+                          taps a button and the error recovery was completed.
+			              didRecover Is true if the error recovery was
+                          successful. You should retry the action that lead to
+                          the error in this case.
  */
 - (void)presentError:(NSError *)error completionHandler:(void (^)(BOOL didRecover))completionHandler;
 
 /**
- *  Called when the receiver is about to present or forward an error. The
- *  returned error is the error that is should actually be presented or
- *  forwarded.
- *
- *  The default implementation of this method immediately returns the passed-in
- *  error.
- *
- *  You can manipulate the passed-in error to change the presentation of the
- *  error in three ways:
- *  (1) return the error that was passed to the method to not change the error.
- *  (2) return nil to stop the error from being presented.
- *  (3) return a new error that will be presented instead.
-        It is recommended to only touch the parameters of the error you really
-        want to change and leave the rest as it is. E.g. when you want to change
-        the localized text that is shown to the user, leave the error domain,
-        the error code and all other keys from the `userInfo` dictionary as they
-        are to give other responders in the chain a chance to identify the error.
- *
- *  @param error The error the receiver wants to present or forward.
- *
- *  @return The error you want the receiver to present or forward or nil if you
-            do not want any error to be presented or forwarded.
+ Called when the receiver is about to present or forward an error. The returned
+ error is the error that is should actually be presented or forwarded.
+ 
+ The default implementation of this method immediately returns the passed-in
+ error.
+ 
+ You can manipulate the passed-in error to change the presentation of the error
+ in three ways:
+ (1) return the error that was passed to the method to not change the error.
+ (2) return nil to stop the error from being presented.
+ (3) return a new error that will be presented instead.
+     It is recommended to only touch the parameters of the error you really
+     want to change and leave the rest as it is. E.g. when you want to change
+     the localized text that is shown to the user, leave the error domain, the
+     error code and all other keys from the `userInfo` dictionary as they are to
+     give other responders in the chain a chance to identify the error.
+ 
+ @param error The error the receiver wants to present or forward.
+ 
+ @return The error you want the receiver to present or forward or nil if you
+         do not want any error to be presented or forwarded.
  */
 - (NSError *)willPresentError:(NSError *)error;
 

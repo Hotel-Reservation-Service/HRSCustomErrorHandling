@@ -17,18 +17,18 @@
 @interface HRSErrorPresenterDelegate : NSObject <UIAlertViewDelegate>
 
 /**
- *  Creates a presenter delegate to work closely together with the
- *  `HRSErrorPresenter`.
- *
- *  @note You should not create such an object on your own, instead, this object
-          is presented for you when creating an `HRSErrorPresenter`.
- *
- *  @param error             The error the corresponding `HRSErrorPresenter`
-                             will show.
- *  @param completionHandler The completion handler that should be invoked after
-                             error recovery completed.
- *
- *  @return The delegate to be used by the `HRSErrorPresenter` instance.
+ Creates a presenter delegate to work closely together with the
+ `HRSErrorPresenter`.
+ 
+ @note You should not create such an object on your own, instead, this object
+       is presented for you when creating an `HRSErrorPresenter`.
+ 
+ @param error             The error the corresponding `HRSErrorPresenter` will
+                          show.
+ @param completionHandler The completion handler that should be invoked after
+                          error recovery completed.
+ 
+ @return The delegate to be used by the `HRSErrorPresenter` instance.
  */
 + (instancetype)delegateWithError:(NSError *)error completionHandler:(void(^)(BOOL))completionHandler;
 
