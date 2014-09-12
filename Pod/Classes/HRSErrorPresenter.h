@@ -17,39 +17,39 @@
 @interface HRSErrorPresenter : UIAlertView
 
 /**
- *  @warning You should not set a custom delegate to a `HRSErrorPresenter`.
+ @warning You should not set a custom delegate to a `HRSErrorPresenter`.
  */
 @property(nonatomic,assign) id delegate __unavailable;
 
 /**
- *  Creates a new `HRSErrorPresenter` object (a `UIAlertView`) that is fully
- *  configured with the passed-in error and linked with the given completion
- *  handler.
- *
- *  @note This does not automatically present the alert view. You still need to
-		  call `show` on the returned object.
- *
- *  @param error             The error that should be presented.
- *  @param completionHandler The completion handler that should be called after
-                             error recovery.
- *
- *  @return The fully configured presenter object, ready to be shown to the user.
+ Creates a new `HRSErrorPresenter` object (a `UIAlertView`) that is fully
+ configured with the passed-in error and linked with the given completion
+ handler.
+
+ @note This does not automatically present the alert view. You still need to
+       call `show` on the returned object.
+ 
+ @param error             The error that should be presented.
+ @param completionHandler The completion handler that should be called after
+                          error recovery.
+ 
+ @return The fully configured presenter object, ready to be shown to the user.
  */
 + (instancetype)presenterWithError:(NSError *)error completionHandler:(void (^)(BOOL))completionHandler;
 
 /**
- *  Initializes a `HRSErrorPresenter` object (a `UIAlertView`) that is fully
- *  configured with the passed-in error and linked with the given completion
- *  handler.
- *
- *  @note This does not automatically present the alert view. You still need to
-          call `show` on the returned object.
- *
- *  @param error             The error that should be presented.
- *  @param completionHandler The completion handler that should be called after
-						     error recovery.
- *
- *  @return The fully configured presenter object, ready to be shown to the user.
+ Initializes a `HRSErrorPresenter` object (a `UIAlertView`) that is fully
+ configured with the passed-in error and linked with the given completion
+ handler.
+ 
+ @note This does not automatically present the alert view. You still need to
+       call `show` on the returned object.
+ 
+ @param error             The error that should be presented.
+ @param completionHandler The completion handler that should be called after
+				          error recovery.
+ 
+ @return The fully configured presenter object, ready to be shown to the user.
  */
 - (instancetype)initWithError:(NSError *)error completionHandler:(void (^)(BOOL))completionHandler;
 
