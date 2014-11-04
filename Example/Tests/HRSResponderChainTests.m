@@ -60,6 +60,51 @@
 	[applicationMock stopMocking];
 }
 
+- (void)testVisibleViewControllerToApplicationWithViewController
+{
+	NSError *error = [NSError errorWithDomain:@"com.hrs.tests" code:1 userInfo:nil];
+	void(^completionHandler)(BOOL didRecover) = ^void(BOOL didRecover) {
+		// empty
+	};
+	UIViewController *visibleViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+	
+	XCTAssertNotNil(visibleViewController.nextResponder, @"Pre condition unfulfilled: The next responder should not be nil as we are trying to test a visible view controller.");
+	
+	id applicationMock = OCMPartialMock([UIApplication sharedApplication]);
+	[[applicationMock expect] presentError:error onViewController:visibleViewController completionHandler:completionHandler];
+	
+	[visibleViewController presentError:error onViewController:visibleViewController completionHandler:completionHandler];
+	
+	[applicationMock verify];
+	[applicationMock stopMocking];
+}
+
+- (void)testInvisibleViewControllerToApplicationWithViewController
+{
+	NSError *error = [NSError errorWithDomain:@"com.hrs.tests" code:1 userInfo:nil];
+	void(^completionHandler)(BOOL didRecover) = ^void(BOOL didRecover) {
+		// empty
+	};
+	UIViewController *invisibleViewController = [UIViewController new];
+	
+	XCTAssertNil(invisibleViewController.nextResponder, @"Pre condition unfulfilled: The next responder should be nil as we are trying to test an invisible view controller.");
+	
+	id presenterMock = OCMClassMock([HRSErrorPresenter class]);
+	[[presenterMock reject] presenterWithError:error completionHandler:OCMOCK_ANY];
+	[[presenterMock reject] alloc];
+	
+	id applicationMock = OCMPartialMock([UIApplication sharedApplication]);
+	[[applicationMock expect] presentError:error onViewController:invisibleViewController completionHandler:completionHandler];
+	
+	[invisibleViewController presentError:error onViewController:invisibleViewController completionHandler:completionHandler];
+	
+	[applicationMock verify];
+	[applicationMock stopMocking];
+	
+	[presenterMock verify];
+	[presenterMock stopMocking];
+}
+
 - (void)testApplicationToAppDelegate
 {
 	NSError *error = [NSError errorWithDomain:@"com.hrs.tests" code:1 userInfo:nil];
