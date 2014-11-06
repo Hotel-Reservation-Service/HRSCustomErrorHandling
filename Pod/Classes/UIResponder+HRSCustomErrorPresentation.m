@@ -42,6 +42,41 @@
 	}
 }
 
+- (void)presentError:(NSError *)error onViewController:(UIViewController *)viewController completionHandler:(void (^)(BOOL didRecover))completionHandler
+{
+	error = [self willPresentError:error];
+	
+	if (error == nil) {
+		return;
+	}
+	
+	UIApplication *application = [UIApplication sharedApplication];
+	BOOL responderDelegateUnavailable = ![application.delegate isKindOfClass:[UIResponder class]];
+	
+	if (application.delegate == self ||
+		(application == self && responderDelegateUnavailable)) {
+		// this is the default implementation of the app delegate or the
+		// application itself, if its delegate does not inherit from UIResponder.
+		if (viewController.isViewLoaded && viewController.view.window) {
+			// if the view controller's view is visible, present the error,
+			// otherwise suppress the error!
+			[[HRSErrorPresenter presenterWithError:error completionHandler:completionHandler] show];
+		} else {
+			if (completionHandler != NULL) {
+				// make sure the completion handler is always called
+				// asynchronously to prevent errors.
+				dispatch_async(dispatch_get_main_queue(), ^{
+					completionHandler(NO);
+				});
+			}
+		}
+		
+	} else {
+		UIResponder *nextResponder = ([self nextResponder] ?: [UIApplication sharedApplication]);
+		[nextResponder presentError:error onViewController:viewController completionHandler:completionHandler];
+	}
+}
+
 - (NSError *)willPresentError:(NSError *)error
 {
 	return error;
