@@ -27,8 +27,10 @@ This project requires nothing more than the `Foundation` and `UIKit` frameworks.
 
 HRSCustomErrorHandling is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
-    pod "HRSCustomErrorHandling"
+    pod "HRSCustomErrorHandling", "~> 0.1"
     
+Please note that we version our releases based on [Semantic Versioning](http://semver.org), so it is save to advice cocoapods to use every minor and patch version within a major version.
+
 After installing the library through CocoaPods you should add the following line in your prefix header (.pch file):
 
     #import <HRSCustomErrorHandling/HRSCustomErrorHandling.h>

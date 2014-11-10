@@ -1,5 +1,5 @@
 PODS:
-  - HRSCustomErrorHandling (0.1.2)
+  - HRSCustomErrorHandling (0.2.0)
   - OCMock (3.1.1)
 
 DEPENDENCIES:
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  HRSCustomErrorHandling: bf4efac027c8f5126b24d4d1050bf1fbfc649df3
+  HRSCustomErrorHandling: c32762417a44c2c749f5a008d1e1b73c80f0fb36
   OCMock: f6cb8c162ab9d5620dddf411282c7b2c0ee78854
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.4
