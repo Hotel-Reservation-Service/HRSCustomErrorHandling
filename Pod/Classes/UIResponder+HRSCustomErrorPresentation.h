@@ -49,6 +49,45 @@
 - (void)presentError:(NSError *)error completionHandler:(void (^)(BOOL didRecover))completionHandler;
 
 /**
+ Presents an error that is related to a certain view controller to the user.
+ 
+ The default implementation of this method will call `willPresentError:` with
+ the error that was passed to this method. The resulting error will then be
+ forwarded up the responder chain. If there is no next responder, the error
+ is forwarded to the current `UIApplication` instance.
+ 
+ If the responder that receives this message is the application delegate or it
+ is the application itself and the application delegate does not inherit from
+ `UIResponder` the error is presented in a `UIAlertView` dialog, as long as the
+ passed in view controller is visible on screen.
+ 
+ @warning If the passed in view controller is not visible on the screen, the
+          error is suppressed and the `completionHandler` is called with the
+          `didRecover` value set to NO. If you do not want this behaviour, you
+          should use `presentError:completionHandler:` instead.
+ 
+ After the error recovery, the completion handler is called, reporting whether
+ the recovery was successful or not.
+ 
+ It is recommended to retry the action that lead to the error in the first place
+ when the error recovery was successful.
+ 
+ @note You can override this method in your application delegate to create your
+	   own custom error presentation UI. Make sure to let your delegate inherit
+       from `UIResponder` for this hook to work. **The default implementation of
+       this method does the same as `presentError:completionHandler:`**
+ 
+ @param error             The error that should be presented to the user.
+ @param viewController    The view controller the error should be presented on.
+ @param completionHandler The completion handler that is called when the user
+                          taps a button and the error recovery was completed.
+						  didRecover Is true if the error recovery was
+                          successful. You should retry the action that lead to
+                          the error in this case.
+ */
+- (void)presentError:(NSError *)error onViewController:(UIViewController *)viewController completionHandler:(void (^)(BOOL didRecover))completionHandler;
+
+/**
  Called when the receiver is about to present or forward an error. The returned
  error is the error that is should actually be presented or forwarded.
  
