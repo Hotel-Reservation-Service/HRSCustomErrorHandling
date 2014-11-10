@@ -3,6 +3,7 @@
 language: objective-c
 before_install:
   - brew update # workaround for #2836
+  - gem install cocoapods -v '0.34.4'
   - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi # workaround for #2836
   - cd Example && pod install && cd -
 script:

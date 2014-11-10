@@ -1,6 +1,6 @@
 # HRSCustomErrorHandling
 
-[![CI Status](http://img.shields.io/travis/Hotel-Reservation-Service/HRSCustomErrorHandling.svg?style=flat-square)](https://travis-ci.org/Hotel-Reservation-Service/HRSCustomErrorHandling)
+[![CI Status](http://img.shields.io/travis/Hotel-Reservation-Service/HRSCustomErrorHandling/develop.svg?style=flat-square)](https://travis-ci.org/Hotel-Reservation-Service/HRSCustomErrorHandling)
 [![Version](https://img.shields.io/cocoapods/v/HRSCustomErrorHandling.svg?style=flat-square)](http://cocoadocs.org/docsets/HRSCustomErrorHandling)
 [![License](https://img.shields.io/cocoapods/l/HRSCustomErrorHandling.svg?style=flat-square)](http://cocoadocs.org/docsets/HRSCustomErrorHandling)
 [![Platform](https://img.shields.io/cocoapods/p/HRSCustomErrorHandling.svg?style=flat-square)](http://cocoadocs.org/docsets/HRSCustomErrorHandling)
