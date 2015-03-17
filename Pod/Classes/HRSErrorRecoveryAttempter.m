@@ -95,7 +95,7 @@
 	// method signature:
 	// - (void)didPresentErrorWithRecovery:(BOOL)didRecover contextInfo:(void *)contextInfo;
 	BOOL didRecover = [self attemptRecoveryFromError:error optionIndex:recoveryOptionIndex];
-	objc_msgSend(delegate, didRecoverSelector, didRecover, contextInfo);
+	((void (*)(id delegate, SEL selector, BOOL didRecover, void *contextInfo))objc_msgSend)(delegate, didRecoverSelector, didRecover, contextInfo);
 }
 
 @end
