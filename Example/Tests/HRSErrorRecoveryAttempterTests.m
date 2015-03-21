@@ -100,4 +100,30 @@
 	[attempter attemptRecoveryFromError:nil optionIndex:0 delegate:self didRecoverSelector:@selector(_testAsynchronousRecoveryAttemptUnsuccessful_didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
 }
 
+- (void)testEquality {
+    BOOL(^recoveryBlock)(void) = ^BOOL{
+        return NO;
+    };
+    BOOL(^otherRecoveryBlock)(void) = ^BOOL{
+        return YES;
+    };
+    
+    HRSErrorRecoveryAttempter *attempter = [HRSErrorRecoveryAttempter new];
+    [attempter addRecoveryOptionWithTitle:@"Foo" recoveryAttempt:recoveryBlock];
+    
+    HRSErrorRecoveryAttempter *equalAttempter = [HRSErrorRecoveryAttempter new];
+    [equalAttempter addRecoveryOptionWithTitle:@"Foo" recoveryAttempt:otherRecoveryBlock];
+    
+    HRSErrorRecoveryAttempter *unequalAttempter = [HRSErrorRecoveryAttempter new];
+    [unequalAttempter addRecoveryOptionWithTitle:@"Bar" recoveryAttempt:otherRecoveryBlock];
+    
+    HRSErrorRecoveryAttempter *advancedAttempter = [HRSErrorRecoveryAttempter new];
+    [advancedAttempter addRecoveryOptionWithTitle:@"Foo" recoveryAttempt:otherRecoveryBlock];
+    [advancedAttempter addRecoveryOptionWithTitle:@"Bar" recoveryAttempt:otherRecoveryBlock];
+    
+    XCTAssertTrue([attempter isEqual:equalAttempter], @"Both attempter should be equal according to the definition of isEqual:");
+    XCTAssertFalse([attempter isEqual:unequalAttempter], @"Both attempter should not be equal according to the definition of isEqual:");
+    XCTAssertFalse([attempter isEqual:advancedAttempter], @"Both attempter should not be equal according to the definition of isEqual:");
+}
+
 @end
