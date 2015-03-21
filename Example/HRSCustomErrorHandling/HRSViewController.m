@@ -100,4 +100,10 @@
 	}
 }
 
+- (IBAction)saveMultipleTimes:(id)sender {
+    for (int i = 0; i < 5; i++) {
+        [self saveFile:sender];
+    }
+}
+
 @end
