@@ -14,6 +14,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class HRSErrorCoalescingQueue;
 @interface UIResponder (HRSCustomErrorPresentation)
 
 /**

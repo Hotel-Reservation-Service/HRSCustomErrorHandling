@@ -13,5 +13,6 @@
 //
 
 #import <HRSCustomErrorHandling/UIResponder+HRSCustomErrorPresentation.h>
+#import <HRSCustomErrorHandling/HRSErrorCoalescingQueue.h>
 #import <HRSCustomErrorHandling/HRSErrorPresenter.h>
 #import <HRSCustomErrorHandling/HRSErrorRecoveryAttempter.h>

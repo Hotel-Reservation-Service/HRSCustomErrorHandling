@@ -28,6 +28,19 @@
  
  An error is considered equal if the error domain, the error code, and the
  recovery attempter - if there is any - is equal.
+ 
+ # Subclassing
+ 
+ You can subclass `HRSErrorCoalescingQueue` to manipulate the way an error is
+ displayed or enqueued. To use a custom subclass of the error coalescing queue
+ you also need to override the `presentError:completionHandler:` and/or
+ `presentError:onViewController:completionHandler:` methods of `UIResponder`.
+ 
+ To properly use your custom queue, override one or both of these methods in
+ your last responder in the responder chain. This is your `UIApplicationDelegate`
+ if it inherits from `UIResponder` or your `UIApplication` otherwise. In this
+ class, you simply override the mentioned methods and call
+ `addError:completionHandler:` on your own queue.
  */
 @interface HRSErrorCoalescingQueue : NSObject
 
@@ -52,5 +65,29 @@
                           error recovery.
  */
 - (void)addError:(NSError *)error completionHandler:(void(^)(BOOL didRecover))completionHandler;
+
+@end
+
+
+@interface HRSErrorCoalescingQueue (Subclassing)
+
+/**
+ Presents the passed in error.
+
+ You can override this method to perform custom error presentation. The queue
+ calls this method when it is time to present another error. In your custom
+ implementation you need to make sure to call the completion handler when you
+ are done presenting the error, otherwise you will lock up the queue.
+
+ @warning Do not call this method yourself, instead always use the
+          `addError:completionHandler:` method. This method is only used for
+          subclassing purpose.
+
+ @param error             The error that should be presented
+ @param completionHandler The completion handler to be called when the error
+                          presentation ends. This completion handler can be
+                          called on any thread.
+ */
+- (void)presentError:(NSError *)error completionHandler:(void(^)(BOOL didRecover))completionHandler;
 
 @end

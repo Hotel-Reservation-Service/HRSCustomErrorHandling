@@ -94,27 +94,35 @@
     
     self.presenting = YES;
     
-    HRSErrorPresenter *presenter = [HRSErrorPresenter presenterWithError:item.error completionHandler:^(BOOL didRecover) {
-        if (item.completionHandler) {
-            item.completionHandler(didRecover);
-        }
-        
-        NSArray *equalItems = [self dequeueItemsEqualToItem:item];
-        for (HRSErrorCoalescingQueueItem *item in equalItems) {
+    [self presentError:item.error completionHandler:^(BOOL didRecover) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             if (item.completionHandler) {
                 item.completionHandler(didRecover);
             }
-        }
-        self.presenting = NO;
-        [self presentErrorIfPossible];
+            
+            NSArray *equalItems = [self dequeueItemsEqualToItem:item];
+            for (HRSErrorCoalescingQueueItem *item in equalItems) {
+                if (item.completionHandler) {
+                    item.completionHandler(didRecover);
+                }
+            }
+            
+            self.presenting = NO;
+            
+            [self presentErrorIfPossible];
+        });
     }];
-    [presenter show];
 }
 
 - (void)addError:(NSError *)error completionHandler:(void(^)(BOOL didRecover))completionHandler {
     HRSErrorCoalescingQueueItem *item = [HRSErrorCoalescingQueueItem itemWithError:error completionHandler:completionHandler];
     [self enqueueItem:item];
     [self presentErrorIfPossible];
+}
+
+- (void)presentError:(NSError *)error completionHandler:(void(^)(BOOL didRecover))completionHandler {
+    HRSErrorPresenter *presenter = [HRSErrorPresenter presenterWithError:error completionHandler:completionHandler];
+    [presenter show];
 }
 
 @end
