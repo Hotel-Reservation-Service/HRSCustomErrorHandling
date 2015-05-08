@@ -14,7 +14,7 @@
 
 #import "UIResponder+HRSCustomErrorPresentation.h"
 
-#import "HRSErrorPresenter.h"
+#import "HRSErrorCoalescingQueue.h"
 
 
 @implementation UIResponder (HRSCustomErrorPresentation)
@@ -34,7 +34,7 @@
 		(application == self && responderDelegateUnavailable)) {
 		// this is the default implementation of the app delegate or the
 		// application itself, if its delegate does not inherit from UIResponder.
-		[[HRSErrorPresenter presenterWithError:error completionHandler:completionHandler] show];
+        [[HRSErrorCoalescingQueue defaultQueue] addError:error completionHandler:completionHandler];
 		
 	} else {
 		UIResponder *nextResponder = ([self nextResponder] ?: [UIApplication sharedApplication]);
@@ -60,7 +60,7 @@
 		if (viewController.isViewLoaded && viewController.view.window) {
 			// if the view controller's view is visible, present the error,
 			// otherwise suppress the error!
-			[[HRSErrorPresenter presenterWithError:error completionHandler:completionHandler] show];
+            [[HRSErrorCoalescingQueue defaultQueue] addError:error completionHandler:completionHandler];
 		} else {
 			if (completionHandler != NULL) {
 				// make sure the completion handler is always called

@@ -12,7 +12,13 @@
 //	limitations under the License.
 //
 
-#import <HRSCustomErrorHandling/UIResponder+HRSCustomErrorPresentation.h>
-#import <HRSCustomErrorHandling/HRSErrorCoalescingQueue.h>
-#import <HRSCustomErrorHandling/HRSErrorPresenter.h>
-#import <HRSCustomErrorHandling/HRSErrorRecoveryAttempter.h>
+#import <Foundation/Foundation.h>
+
+@interface HRSErrorCoalescingQueueItem : NSObject
+
+@property (nonatomic, strong, readonly) NSError *error;
+@property (nonatomic, copy, readonly) void(^completionHandler)(BOOL didRecover);
+
++ (instancetype)itemWithError:(NSError *)error completionHandler:(void(^)(BOOL didRecover))completionHandler;
+
+@end

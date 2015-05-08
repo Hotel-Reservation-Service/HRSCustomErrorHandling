@@ -98,4 +98,23 @@
 	((void (*)(id delegate, SEL selector, BOOL didRecover, void *contextInfo))objc_msgSend)(delegate, didRecoverSelector, didRecover, contextInfo);
 }
 
+
+
+#pragma mark - equality
+
+- (NSUInteger)hash {
+    return self.recoveryOptions.hash;
+}
+
+- (BOOL)isEqual:(id)object {
+    if (object == self) {
+        return YES;
+    }
+    if ([object isKindOfClass:[self class]] == NO) {
+        return NO;
+    }
+    HRSErrorRecoveryAttempter *otherRecoveryAttempter = object;
+    return [self.recoveryOptions isEqual:otherRecoveryAttempter.recoveryOptions];
+}
+
 @end
