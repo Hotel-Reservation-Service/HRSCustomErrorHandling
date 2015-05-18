@@ -27,6 +27,8 @@
 
 @implementation HRSErrorPresenter
 
+@dynamic delegate; // prevent warning
+
 + (instancetype)presenterWithError:(NSError *)error completionHandler:(void (^)(BOOL))completionHandler
 {
 	return [[self alloc] initWithError:error completionHandler:completionHandler];

@@ -24,6 +24,11 @@
  attempter. The first option that is added should be the default option. The
  default option shout *not* be a destructive operation.
  
+ The recovery attempter can be checked for equality, however as it is not
+ possible to compare two blocks for being logically equal, we are guessing that
+ a recovery attempter is equal to another one, if they both have the same
+ localized recovery options.
+ 
  @warning Make sure to add at least one recovery block that returns `NO`,
           such as a cancel recovery option, to make sure the user can break the
           error presentation cycle in the case your error recovery was not

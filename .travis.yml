@@ -4,6 +4,8 @@ language: objective-c
 before_install:
   - brew update # workaround for #2836
   - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi # workaround for #2836
+install:
+  - cd Example && bundle install && cd -
   - cd Example && pod install && cd -
 script:
 - xctool test -workspace Example/HRSCustomErrorHandling.xcworkspace -scheme HRSCustomErrorHandling -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
