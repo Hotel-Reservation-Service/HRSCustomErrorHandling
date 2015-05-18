@@ -2,6 +2,8 @@
 
 The versioning in this project is based on [Semantic Versioning](http://semver.org).
 
+## v0.3.0
+Errors will now be queued to prevent several error messages from popping up at the same time. Also multiple error messages of the same type are coalesced and only displayed once.
 ## v0.2.0
 Introduce a new api to present view controller based errors. This api is especially made for overriding and displaying custom error dialogs, such as [TSMessages](https://github.com/toursprung/TSMessages). The default implementation looks the same as the regular api but is only shown if the passed-in view controller is visible.
 
