@@ -15,7 +15,10 @@
 #import "HRSErrorPresenter.h"
 
 #import <objc/runtime.h>
+
+#import "HRSErrorLocalizationHelper.h"
 #import "HRSErrorPresenterDelegate.h"
+#import "HRSErrorRecoveryAttempter.h"
 
 
 @interface HRSErrorPresenter ()
@@ -40,7 +43,21 @@
 	
     self = [super initWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:delegate cancelButtonTitle:nil otherButtonTitles:nil];
 	
-	for (NSString *title in [error.localizedRecoveryOptions reverseObjectEnumerator]) {
+    NSArray *recoveryOptions = error.localizedRecoveryOptions;
+    if (recoveryOptions.count == 0) { // the error does not have recovery options... try to be intelligent...
+        id recoveryAttempter = error.recoveryAttempter;
+        if (recoveryAttempter && [recoveryAttempter isKindOfClass:[HRSErrorRecoveryAttempter class]]) {
+            // the recovery attempter belongs to the HRSCustomErrorHandling
+            // framework. Let's use its recovery options!
+            recoveryOptions = ((HRSErrorRecoveryAttempter *)recoveryAttempter).localizedRecoveryOptions;
+        }
+    }
+    if (recoveryOptions.count == 0) {
+        // Still no recovery options found. Fall back to a default ok localization
+        recoveryOptions = @[ [HRSErrorLocalizationHelper okLocalization] ];
+    }
+    
+	for (NSString *title in [recoveryOptions reverseObjectEnumerator]) {
 		[self addButtonWithTitle:title];
 	}
 	
