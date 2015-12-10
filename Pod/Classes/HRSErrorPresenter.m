@@ -38,7 +38,7 @@
 {
 	HRSErrorPresenterDelegate *delegate = [HRSErrorPresenterDelegate delegateWithError:error completionHandler:completionHandler];
 	
-	self = [super initWithTitle:[error localizedFailureReason] message:[error localizedRecoverySuggestion] delegate:delegate cancelButtonTitle:nil otherButtonTitles:nil];
+	self = [super initWithTitle:[error localizedDescription] message:[error localizedRecoverySuggestion] delegate:delegate cancelButtonTitle:nil otherButtonTitles:nil];
 	
 	for (NSString *title in [[error localizedRecoveryOptions] reverseObjectEnumerator]) {
 		[self addButtonWithTitle:title];
