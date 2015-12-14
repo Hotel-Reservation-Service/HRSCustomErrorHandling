@@ -16,6 +16,8 @@
 
 #import <objc/message.h>
 
+#import "HRSErrorLocalizationHelper.h"
+
 
 @interface HRSErrorRecoveryAttempter ()
 
@@ -53,15 +55,9 @@
 
 #pragma mark - Convenience options
 
-- (NSString *)_localizedTitleFromKey:(NSString *)key
-{
-	NSBundle *uiKitBundle = [NSBundle bundleForClass:[UIResponder class]];
-	return [uiKitBundle localizedStringForKey:key value:key table:nil];
-}
-
 - (void)addOkayRecoveryOption
 {
-	NSString *title = [self _localizedTitleFromKey:@"OK"];
+	NSString *title = [HRSErrorLocalizationHelper okLocalization];
 	[self addRecoveryOptionWithTitle:title recoveryAttempt:^BOOL{
 		return NO;
 	}];
@@ -69,7 +65,7 @@
 
 - (void)addCancelRecoveryOption
 {
-	NSString *title = [self _localizedTitleFromKey:@"Cancel"];
+	NSString *title = [HRSErrorLocalizationHelper cancelLocalization];
 	[self addRecoveryOptionWithTitle:title recoveryAttempt:^BOOL{
 		return NO;
 	}];
