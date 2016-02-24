@@ -12,7 +12,7 @@
 //	limitations under the License.
 //
 
-#import <HRSCustomErrorHandling/UIResponder+HRSCustomErrorPresentation.h>
-#import <HRSCustomErrorHandling/HRSErrorCoalescingQueue.h>
-#import <HRSCustomErrorHandling/HRSErrorPresenter.h>
-#import <HRSCustomErrorHandling/HRSErrorRecoveryAttempter.h>
+#import "UIResponder+HRSCustomErrorPresentation.h"
+#import "HRSErrorCoalescingQueue.h"
+#import "HRSErrorPresenter.h"
+#import "HRSErrorRecoveryAttempter.h"

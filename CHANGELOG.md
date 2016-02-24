@@ -2,6 +2,8 @@
 
 The versioning in this project is based on [Semantic Versioning](http://semver.org).
 
+## v0.4.0
+The `localizedDescription` of an `NSError` will now be used as the alert's title by default. This is a **breaking change** from the previous versions. Make sure to use the `NSLocalizedDescriptionKey` in your custom errors instead of the `NSLocalizedFailureReasonErrorKey`. This change was made to be consistent with the OS X error presentation.
 ## v0.3.0
 Errors will now be queued to prevent several error messages from popping up at the same time. Also multiple error messages of the same type are coalesced and only displayed once.
 ## v0.2.0
