@@ -11,6 +11,8 @@ The project is available under the Apache 2 license. Please see the LICENSE file
 
 
 ## Contributors
+### v0.4.0
+- Alex Hoppen - [Fixed issue when importing into Swift CocoaPod](https://github.com/Hotel-Reservation-Service/HRSCustomErrorHandling/pull/10)
 ### v0.3.0
 - Roland Lindner - [Fix compiler error on uncasted objc_msgSend calls in Xcode 6.2](https://github.com/Hotel-Reservation-Service/HRSCustomErrorHandling/pull/6)
 
