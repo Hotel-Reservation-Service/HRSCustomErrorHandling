@@ -13,8 +13,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HRSAlertController.h"
 
-@interface HRSErrorPresenter : UIAlertView
+@interface HRSErrorPresenter : HRSAlertController
 
 /**
  @warning You should not set a custom delegate to a `HRSErrorPresenter`.

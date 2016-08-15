@@ -16,7 +16,8 @@
 
 #import "HRSErrorCoalescingQueueItem.h"
 #import "HRSErrorPresenter.h"
-
+#import "HRSAlertManager.h"
+#import "HRSAlertController+DismissOnResign.h"
 
 @interface HRSErrorCoalescingQueue ()
 
@@ -94,6 +95,7 @@
     
     self.presenting = YES;
     
+    
     [self presentError:item.error completionHandler:^(BOOL didRecover) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (item.completionHandler) {
@@ -121,8 +123,8 @@
 }
 
 - (void)presentError:(NSError *)error completionHandler:(void(^)(BOOL didRecover))completionHandler {
-    HRSErrorPresenter *presenter = [HRSErrorPresenter presenterWithError:error completionHandler:completionHandler];
-    [presenter show];
+    HRSAlertController *alertController = [[HRSAlertManager sharedInstance] presentError:error delegate:nil completion:completionHandler];
+    alertController.HRS_dismissOnApplicationResignActive = YES;
 }
 
 @end

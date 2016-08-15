@@ -14,7 +14,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HRSErrorPresenterDelegate : NSObject <UIAlertViewDelegate>
+@interface HRSErrorPresenterDelegate : NSObject <UIAlertViewDelegate> //TODO: this thing must be converted to use HRSAlertController as well
 
 /**
  Creates a presenter delegate to work closely together with the

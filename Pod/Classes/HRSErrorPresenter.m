@@ -41,7 +41,8 @@
 {
 	HRSErrorPresenterDelegate *delegate = [HRSErrorPresenterDelegate delegateWithError:error completionHandler:completionHandler];
 	
-    self = [super initWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:delegate cancelButtonTitle:nil otherButtonTitles:nil];
+    
+    self = [HRSErrorPresenter alertControllerWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion preferredStyle:UIAlertControllerStyleAlert];
 	
     NSArray *recoveryOptions = error.localizedRecoveryOptions;
     if (recoveryOptions.count == 0) { // the error does not have recovery options... try to be intelligent...
@@ -58,10 +59,15 @@
     }
     
 	for (NSString *title in [recoveryOptions reverseObjectEnumerator]) {
-		[self addButtonWithTitle:title];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (completionHandler) {
+                completionHandler(YES);
+            }
+        }];
+        [self addAction:action];
 	}
 	
-	self.presenterDelegate = delegate;
+    self.presenterDelegate = delegate; //TODO: throw out?!
 	
 	return self;
 }

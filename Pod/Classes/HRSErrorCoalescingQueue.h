@@ -88,6 +88,6 @@
                           presentation ends. This completion handler can be
                           called on any thread.
  */
-- (void)presentError:(NSError *)error completionHandler:(void(^)(BOOL didRecover))completionHandler;
+- (void)presentError:(NSError *)error onViewController:(UIViewController*)viewController completionHandler:(void(^)(BOOL didRecover))completionHandler;
 
 @end
