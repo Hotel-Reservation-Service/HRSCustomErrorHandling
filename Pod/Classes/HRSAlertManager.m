@@ -1,6 +1,8 @@
 #import "HRSAlertManager.h"
 #import "HRSErrorPresenter.h"
 #import "HRSAlertController.h"
+#import "HRSErrorRecoveryAttempter.h"
+#import "HRSAlertController+DismissOnResign.h"
 
 typedef void (^CompletionHandlerWrapper)(BOOL);
 
@@ -30,6 +32,7 @@ typedef void (^CompletionHandlerWrapper)(BOOL);
 
 {
     HRSErrorPresenter *presenter = [HRSErrorPresenter presenterWithError:error completionHandler:completionHandler];
+    presenter.HRS_dismissOnApplicationResignActive = YES;
     if (delegate) {
         presenter.alertDelegate = delegate;
     }
@@ -65,6 +68,7 @@ typedef void (^CompletionHandlerWrapper)(BOOL);
     if (delegate) {
         presenter.alertDelegate = delegate;
     }
+    presenter.HRS_dismissOnApplicationResignActive = YES;
     [viewController presentViewController:presenter animated:YES completion:NULL];
     [self.alertQueue addObject:presenter];
     return presenter;
@@ -98,6 +102,8 @@ typedef void (^CompletionHandlerWrapper)(BOOL);
     };
     
     HRSErrorPresenter *presenter = [HRSErrorPresenter presenterWithError:error completionHandler:completionHandlerWrapper];
+    presenter.HRS_dismissOnApplicationResignActive = YES;
+    presenter.dedicatedWindow = window;
     if (delegate) {
         presenter.alertDelegate = delegate;
     }
@@ -108,7 +114,25 @@ typedef void (^CompletionHandlerWrapper)(BOOL);
 }
 
 
-- (nonnull HRSAlertController*)presentAlert:(nonnull NSString*)title message:(nonnull NSString*)message actions:(nonnull NSArray<UIAlertAction*>*)actions delegate:(nullable id<HRSAlertControllerDelegate>)delegate
+
+- (nonnull HRSAlertController*)presentOKAlert:(nonnull NSString*)title message:(nonnull NSString*)message actions:(nonnull NSArray<UIAlertAction*>*)actions delegate:(nullable id<HRSAlertControllerDelegate>)delegate
+{
+    HRSErrorRecoveryAttempter *attempter = [HRSErrorRecoveryAttempter new];
+    [attempter addOkayRecoveryOption];
+    HRSAlertController *alertController = [self presentAlert:title message:message recoveryAttempter:attempter actions:actions delegate:delegate];
+    return alertController;
+}
+
+- (nonnull HRSAlertController*)presentCancelAlert:(nonnull NSString*)title message:(nonnull NSString*)message actions:(nonnull NSArray<UIAlertAction*>*)actions delegate:(nullable id<HRSAlertControllerDelegate>)delegate
+{
+    HRSErrorRecoveryAttempter *attempter = [HRSErrorRecoveryAttempter new];
+    [attempter addCancelRecoveryOption];
+    HRSAlertController *alertController = [self presentAlert:title message:message recoveryAttempter:attempter actions:actions delegate:delegate];
+    return alertController;
+}
+
+
+- (nonnull HRSAlertController*)presentAlert:(nonnull NSString*)title message:(nonnull NSString*)message recoveryAttempter:(HRSErrorRecoveryAttempter*)attempter actions:(nonnull NSArray<UIAlertAction*>*)actions delegate:(nullable id<HRSAlertControllerDelegate>)delegate
 {
     UIViewController *transparentVC = [UIViewController new];
     transparentVC.view.backgroundColor = [UIColor clearColor];
@@ -121,21 +145,29 @@ typedef void (^CompletionHandlerWrapper)(BOOL);
     
     __weak typeof(self) weakself = self;
     __weak typeof(transparentVC) weakVC = transparentVC;
+    __weak typeof(window) weakWindow = window;
     CompletionHandlerWrapper completionHandlerWrapper = ^void(BOOL success) {
         typeof(weakself) self = weakself;
         typeof(weakVC) transparentVC = weakVC;
+        typeof(weakWindow) window = weakWindow;
         if (self == nil) {
             return;
         }
         window.rootViewController = nil;
     };
+    
     NSDictionary *userInfo = @{
                                NSLocalizedDescriptionKey: title,
                                NSLocalizedRecoverySuggestionErrorKey: message,
+                               NSRecoveryAttempterErrorKey: attempter,
+                               NSLocalizedRecoveryOptionsErrorKey: attempter.localizedRecoveryOptions
                                };
-    NSError *error = [NSError errorWithDomain:@"" code:0 userInfo:userInfo]; // good idea?
+    
+    NSError *error = [NSError errorWithDomain:@"domain" code:1 userInfo:userInfo];
     
     HRSErrorPresenter *presenter = [HRSErrorPresenter presenterWithError:error completionHandler:completionHandlerWrapper];
+    presenter.HRS_dismissOnApplicationResignActive = YES;
+    presenter.dedicatedWindow = window;
     if (delegate) {
         presenter.alertDelegate = delegate;
     }

@@ -123,8 +123,7 @@
 }
 
 - (void)presentError:(NSError *)error completionHandler:(void(^)(BOOL didRecover))completionHandler {
-    HRSAlertController *alertController = [[HRSAlertManager sharedInstance] presentError:error delegate:nil completion:completionHandler];
-    alertController.HRS_dismissOnApplicationResignActive = YES;
+    [[HRSAlertManager sharedInstance] presentError:error delegate:nil completion:completionHandler];
 }
 
 @end

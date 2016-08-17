@@ -1,6 +1,5 @@
 #import "HRSAlertController.h"
 
-
 @implementation HRSAlertController
 
 - (void)viewDidLayoutSubviews
@@ -19,5 +18,11 @@
     return [super shouldAutorotate];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    if ([self.alertDelegate respondsToSelector:@selector(alertControllerDidDisappear:)]) {
+        [self.alertDelegate alertControllerDidDisappear:self];
+    }
+}
 
 @end
