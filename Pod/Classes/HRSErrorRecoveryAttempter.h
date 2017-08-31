@@ -14,6 +14,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface HRSErrorRecoveryAttempter : NSObject
 
 /**
@@ -69,3 +71,5 @@
 - (NSArray *)localizedRecoveryOptions;
 
 @end
+
+NS_ASSUME_NONNULL_END

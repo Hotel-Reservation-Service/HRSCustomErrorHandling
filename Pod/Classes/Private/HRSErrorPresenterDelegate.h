@@ -14,6 +14,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface HRSErrorPresenterDelegate : NSObject <UIAlertViewDelegate>
 
 /**
@@ -30,6 +32,8 @@
  
  @return The delegate to be used by the `HRSErrorPresenter` instance.
  */
-+ (instancetype)delegateWithError:(NSError *)error completionHandler:(void(^)(BOOL))completionHandler;
++ (instancetype)delegateWithError:(NSError *)error completionHandler:(void(^ _Nullable)(BOOL))completionHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END

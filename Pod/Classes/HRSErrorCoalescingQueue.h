@@ -14,6 +14,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  The error coalescing queue gathers all errors that are added to itself and then
  usees the HRSErrorPresenter to present the errors, one at a time, ensuring that
@@ -64,7 +66,7 @@
  @param completionHandler The completion handler that should be called after
                           error recovery.
  */
-- (void)addError:(NSError *)error completionHandler:(void(^)(BOOL didRecover))completionHandler;
+- (void)addError:(NSError *)error completionHandler:(void(^ _Nullable)(BOOL didRecover))completionHandler;
 
 @end
 
@@ -88,6 +90,8 @@
                           presentation ends. This completion handler can be
                           called on any thread.
  */
-- (void)presentError:(NSError *)error completionHandler:(void(^)(BOOL didRecover))completionHandler;
+- (void)presentError:(NSError *)error completionHandler:(void(^ _Nullable)(BOOL didRecover))completionHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END

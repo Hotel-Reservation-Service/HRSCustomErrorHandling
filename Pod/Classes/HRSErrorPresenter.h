@@ -14,6 +14,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface HRSErrorPresenter : UIAlertView
 
 /**
@@ -35,7 +37,7 @@
  
  @return The fully configured presenter object, ready to be shown to the user.
  */
-+ (instancetype)presenterWithError:(NSError *)error completionHandler:(void (^)(BOOL))completionHandler;
++ (instancetype)presenterWithError:(NSError *)error completionHandler:(void (^ _Nullable)(BOOL))completionHandler;
 
 /**
  Initializes a `HRSErrorPresenter` object (a `UIAlertView`) that is fully
@@ -51,6 +53,8 @@
  
  @return The fully configured presenter object, ready to be shown to the user.
  */
-- (instancetype)initWithError:(NSError *)error completionHandler:(void (^)(BOOL))completionHandler;
+- (instancetype)initWithError:(NSError *)error completionHandler:(void (^ _Nullable)(BOOL))completionHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END
