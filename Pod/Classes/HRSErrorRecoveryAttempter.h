@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  The recovery options are stored in the order they are added to the recovery
  attempter. The first option that is added should be the default option. The
- default option shout *not* be a destructive operation.
+ default option should *not* be a destructive operation.
  
  The recovery attempter can be checked for equality, however as it is not
  possible to compare two blocks for being logically equal, we are guessing that
