@@ -43,6 +43,14 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	id recoveryAttempter = [self.error recoveryAttempter];
+	if (!recoveryAttempter) {
+		// No recovery handler present. Call completion handler without success
+		// to fulfill the guarantee that the completion handler will always be
+		// called
+		self.completionHandler(NO);
+		return;
+	}
+
 	// alert view button indexes are ordered oposite to the error options index!
 	NSInteger optionIndex = alertView.numberOfButtons - buttonIndex - 1;
 	BOOL didRecover = [recoveryAttempter attemptRecoveryFromError:self.error optionIndex:optionIndex];
